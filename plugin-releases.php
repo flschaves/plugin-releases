@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:     Plugin Releases
- * Plugin URI:      https://aioseo.com
- * Description:     
+ * Plugin Name:     Plugin Releases - List Zenhub report releases
+ * Plugin URI:      https://flschaves.com
+ * Description:     Integrates with Zenhub API to list Github releases.
  * Author:          Filipe Chaves
  * Text Domain:     plugin-releases
  * Domain Path:     /languages

@@ -7,6 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Releases {
+	/**
+	 * Get the page title.
+	 *
+	 * @since 0.1.0
+	 * 
+	 * @return string The page title.
+	 */
 	public function getTitle() {
 		if ( ! empty( $_GET['release_title'] ) ) {
 			return esc_html( $_GET['release_title'] );

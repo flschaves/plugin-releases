@@ -25,6 +25,9 @@ if ( ! defined( 'PLUGIN_RELEASES_DIR' ) ) {
 if ( ! defined( 'PLUGIN_RELEASES_FILE' ) ) {
 	define( 'PLUGIN_RELEASES_FILE', __FILE__ );
 }
+if ( ! defined( 'PLUGIN_RELEASES_URL' ) ) {
+	define( 'PLUGIN_RELEASES_URL', plugin_dir_url( __FILE__ ) );
+}
 
 /**
  * Returns the main instance of PluginReleases.

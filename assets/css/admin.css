@@ -1,0 +1,33 @@
+#wp-admin-bar-plugin-releases {
+}
+
+#wp-admin-bar-plugin-releases .wp-ui-notification {
+	display: inline-flex;
+	vertical-align: top;
+	box-sizing: border-box;
+	padding: 0;
+	min-width: 18px;
+	height: 18px;
+	border-radius: 9px;
+	font-size: 11px;
+	line-height: 1.6;
+	text-align: center;
+	justify-content: center;
+	margin: 7px 0 0 5px;
+}
+
+#wp-admin-bar-plugin-releases .wp-ui-notification.flashing {
+	animation: plugin-releases-flash 500ms infinite;
+}
+
+@keyframes plugin-releases-flash {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

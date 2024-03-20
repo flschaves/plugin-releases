@@ -26,12 +26,23 @@ class Admin {
 	private $pages;
 
 	/**
+	 * Dashboard instance.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @var Dashboard
+	 */
+	public $dashboard = null;
+
+	/**
 	 * Class constructor.
 	 *
 	 * @since 0.1.0
 	 */
 	public function __construct() {
 		$this->hooks();
+
+		$this->dashboard = new Dashboard();
 	}
 
 	/**
@@ -42,6 +53,19 @@ class Admin {
 	protected function hooks() {
 		add_action( 'admin_menu', [ $this, 'addMenus' ] );
 		add_action( 'admin_init', [ $this, 'processActions' ] );
+		add_action( 'admin_bar_menu', [ $this, 'adminBarMenu' ], 1000 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'loadAdminStyles' ] );
+	}
+
+	/**
+	 * Load admin styles.
+	 *
+	 * @since 0.1.1
+	 *
+	 * @return void
+	 */
+	public function loadAdminStyles() {
+		wp_enqueue_style( 'plugin-releases', PLUGIN_RELEASES_URL . 'assets/css/admin.css', [], PLUGIN_RELEASES_VER );
 	}
 
 	/**
@@ -59,6 +83,42 @@ class Admin {
 			'dashicons-image-filter',
 			$this->getMenuItemPosition()
 		);
+	}
+
+	/**
+	 * Add admin bar menu item.
+	 *
+	 * @since 0.1.0
+	 */
+	public function adminBarMenu() {
+		global $wp_admin_bar;
+
+		$count     = 0;
+		$countHtml = '';
+		$flashing  = false;
+
+		$awaitingReview = pluginReleases()->features->getPRsAwaitingReview();
+		if ( ! empty( $awaitingReview ) ) {
+			$count+= count( $awaitingReview );
+			$flashing = true;
+
+			$wp_admin_bar->add_menu( [
+				'id'    => 'plugin-releases-awaiting-review',
+				'parent' => 'plugin-releases',
+				'title' => '<span class="text">' . esc_html__( 'Awaiting your review:', 'plugin-releases' ) . '</span> ' . count( $awaitingReview ),
+				'href'  => $this->getAdminUrl(), // TODO: Add link to the github filtered page.
+			] );
+		}
+
+		if ( 0 < $count ) {
+			$countHtml = '<div class="wp-core-ui wp-ui-notification ' . ( true === $flashing ? 'flashing' : '' ) . '">' . $count . '</div>';
+		}
+
+		$wp_admin_bar->add_menu( [
+			'id'    => 'plugin-releases',
+			'title' => '<span class="text">' . esc_html__( 'Plugin Releases', 'plugin-releases' ) . '</span>' . $countHtml,
+			'href'  => $this->getAdminUrl(),
+		] );
 	}
 
 	/**

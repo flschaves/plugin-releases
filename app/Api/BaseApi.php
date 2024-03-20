@@ -36,9 +36,15 @@ abstract class BaseApi {
 	 * @return array
 	 */
 	public function __call( $method, $args ) {
-		$method   = strtoupper( $method );
-		$endpoint = $this->prepareEndpoint( $args[0], $args[1] );
-		$data     = isset( $args[2] ) ? $args[2] : [];
+		$method    = strtoupper( $method );
+		$endpoint  = $this->prepareEndpoint( $args[0], $args[1] );
+		$data      = isset( $args[2] ) ? $args[2] : [];
+		$queryArgs = isset( $args[3] ) ? $args[3] : [];
+
+		// Add query args to the endpoint.
+		if ( ! empty( $queryArgs ) ) {
+			$endpoint = add_query_arg( $queryArgs, $endpoint );
+		}
 
 		$response = wp_remote_request( $this->apiUrl . '/' . $endpoint, [
 			'method'  => $method,

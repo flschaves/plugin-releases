@@ -26,10 +26,18 @@ class PluginReleases {
 	/**
 	 * Admin instance.
 	 *
-	 * @var Admin
+	 * @var Api
 	 * @since 0.1.0
 	 */
 	public $api = null;
+
+	/**
+	 * Admin instance.
+	 *
+	 * @var Features
+	 * @since 0.1.0
+	 */
+	public $features = null;
 
 	/**
 	 * Class constructor.
@@ -37,8 +45,9 @@ class PluginReleases {
 	 * @since 0.1.0
 	 */
 	public function __construct() {
-		$this->admin = new Admin\Admin();
-		$this->api   = new Api\Api();
+		$this->admin    = new Admin\Admin();
+		$this->api      = new Api\Api();
+		$this->features = new Features\Features();
 	}
 
 	/**

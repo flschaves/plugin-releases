@@ -24,9 +24,9 @@ class Dashboard {
 	 */
 	public function addWidgets() {
 		wp_add_dashboard_widget(
-			'plugin-releases-awaiting-review',
-			__( 'Awaiting Review', 'plugin-releases' ),
-			[ $this, 'renderAwaitingReview' ],
+			'plugin-releases',
+			__( 'Plugin Releases', 'plugin-releases' ),
+			[ $this, 'render' ],
 			null,
 			null,
 			'normal',
@@ -39,8 +39,16 @@ class Dashboard {
 	 *
 	 * @since 0.1.0
 	 */
-	public function renderAwaitingReview() {
+	public function render() {
 		$awaiting = pluginReleases()->features->getPRsAwaitingReview();
-		echo count($awaiting);
+		if ( ! empty( $awaiting ) ) {
+			echo '<h3>Pull Requests Awaiting Your Review (' . count( $awaiting ) . '):</h3>';
+
+			echo '<ul>';
+			foreach ( $awaiting as $pr ) {
+				echo '<li><a href="' . esc_url( $pr->html_url ) . '" target="_blank">' . esc_html( $pr->title ) . '</a></li>';
+			}
+			echo '</ul>';
+		}
 	}
 }

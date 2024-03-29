@@ -31,7 +31,7 @@ final class Features {
 
 			$pullRequests = json_decode( wp_remote_retrieve_body( $response ) );
 
-			set_transient( 'plugin_releases_pull_requests', $pullRequests, 24 * HOUR_IN_SECONDS );
+			set_transient( 'plugin_releases_pull_requests', $pullRequests, 12 * HOUR_IN_SECONDS );
 		}
 
 		return $pullRequests;

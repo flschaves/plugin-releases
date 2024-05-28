@@ -4,6 +4,7 @@
  * Plugin URI:      https://flschaves.com
  * Description:     Integrates with Zenhub API to list Github releases.
  * Author:          Filipe Chaves
+ * Author URI:      https://flschaves.com
  * Text Domain:     plugin-releases
  * Domain Path:     /languages
  * Version:         0.1.0
